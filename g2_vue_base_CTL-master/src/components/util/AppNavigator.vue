@@ -1,4 +1,4 @@
-<template>
+/*<template>
 	<v-navigation-drawer
 		app
 		width="290"
@@ -26,7 +26,7 @@
 				color="#06B7B2"
                 @click="changeRoute(item)"
 			>
-				<template v-slot:activator >
+				/*<template v-slot:activator >
 					<v-list-item-icon class="mr-0">
 			
 					</v-list-item-icon>
@@ -38,13 +38,49 @@
 			</v-list-group>
 		</v-list>
 	</v-navigation-drawer>
-</template>
+</template> */
+<template>
+	<v-navigation-drawer app width="290" v-model="drawer" dark temporary>
+	  <v-list-item>
+		<v-list-item-content>
+		  <v-list-item-title>
+			<img src="@/assets/Alloxentric-logo-white.png" width="190" height="45" />
+		  </v-list-item-title>
+		</v-list-item-content>
+	  </v-list-item>
+	  <v-list>
+		<v-list-item-title class="text-center">
+		  Menú
+		</v-list-item-title>
+		<v-divider></v-divider>
+		<v-list-group
+		  class="justify-content-between"
+		  v-for="(item, i) in items"
+		  :key="i"
+		  :v-model="selected"
+		  active-class="active"
+		  color="#06B7B2"
+		  @click="changeRoute(item)"
+		>
+		  <template v-slot:activator>
+			<v-list-item-icon class="mr-0"></v-list-item-icon>
+			<v-list-item-content>
+			  <v-list-item-title v-text="item.title"></v-list-item-title>
+			</v-list-item-content>
+		  </template>
+		</v-list-group>
+	  </v-list>
+	</v-navigation-drawer>
+  </template>
+  
 
 <script lang="ts">
-  import {Vue, Component} from 'vue-property-decorator';
-  import { INavigator } from '@/model/util/INavigator'; 
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+  /*import {Vue, Component} from 'vue-property-decorator';
+  import { INavigator } from '@/model/util/INavigator'; */
 
-@Component({
+/*@Component({
     name: 'AppNavigator',
 	data(){
 		return {
@@ -60,11 +96,27 @@
 		this.$root.$refs.compmenu_component = this;
 	}
     })
-    
-    
-  
-	export default class AppNavigator {
-        public selected = 0;
+  */  
+  Component({
+  name: 'AppNavigator',
+  data() {
+    return {
+      drawer: false,
+      selected: 0, // Agregar la propiedad selected
+    };
+  },
+  methods: {
+    showMenu2() {
+      this.drawer = true;
+    },
+  },
+  created() {
+    this.$root.$refs.compmenu_component = this;
+  },
+})
+export default class AppNavigator {
+  // Resto del código sin cambios
+  public selected = 0;
 		private currentRoute = '';
 		public items: Array<INavigator> = [
 				{
@@ -101,8 +153,7 @@
 				}
 			}
     
-
-    }
+}
 </script>
 
 <style scoped>
